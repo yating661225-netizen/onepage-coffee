@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura Cafe | 自家烘焙咖啡與手做甜點</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500&family=Noto+Serif+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-color: #FAF9F6;
+            --text-main: #2C3E50;
+            --text-light: #7F8C8D;
+            --blur-pink: rgba(255, 209, 209, 0.4);
+            --blur-blue: rgba(212, 223, 230, 0.5);
+            --blur-green: rgba(209, 232, 226, 0.4);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Noto Sans TC', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        h1, h2, h3, .serif-text {
+            font-family: 'Noto Serif TC', serif;
+        }
+
+        .en-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* 漸層光暈背景特效 */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--blur-blue); }
+        .blob-2 { top: 40%; right: -10%; width: 60vw; height: 60vw; background: var(--blur-pink); }
+        .blob-3 { bottom: -20%; left: 20%; width: 40vw; height: 40vw; background: var(--blur-green); }
+
+        /* Hero Section 錯位排版 */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px; /* 增加頂部內距，避免被 fixed-top 的導覽列遮蓋 */
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            letter-spacing: 0.05em;
+        }
+        .hero-img-wrapper {
+            position: relative;
+            transform: translateY(10%); /* 刻意向下錯位 */
+        }
+        .hero-img {
+            width: 80%;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+
+        /* 雜誌編輯風：品牌特色 */
+        .feature-section {
+            padding: 120px 0;
+            position: relative;
+        }
+        .bg-text-watermark {
+            position: absolute;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 15rem;
+            color: rgba(44, 62, 80, 0.03);
+            font-weight: 700;
+            z-index: -1;
+            top: 50%;
+            transform: translateY(-50%);
+            white-space: nowrap;
+        }
+        .bg-text-right { right: -5%; }
+        .bg-text-left { left: -5%; }
+        
+        .overlap-img {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+        /* 利用負邊距創造圖文交疊感 */
+        .overlap-text-box {
+            position: relative;
+            z-index: 3;
+            background: rgba(250, 249, 246, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            margin-top: -80px; /* 向上疊加到圖片上 */
+            margin-left: -40px; /* 向左疊加 */
+        }
+
+        /* 極簡菜單區 */
+        #menu {
+            padding: 100px 0;
+        }
+        .menu-item {
+            border-bottom: 1px solid #E0E0E0;
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            transition: all 0.3s ease;
+        }
+        .menu-item:hover {
+            border-bottom: 1px solid var(--text-main);
+        }
+        .menu-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin: 0;
+        }
+        .menu-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .menu-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+        }
+
+        /* 菜單輪播圖片樣式 */
+        .coffee-carousel-img {
+            height: 450px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* 客戶好評區 (更新) */
+        #testimonials {
+            padding: 100px 0;
+            text-align: center;
+        }
+        .testimonial-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .quote-icon {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            color: #D4DFE6;
+            line-height: 0;
+            margin-bottom: 15px;
+        }
+        .testimonial-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 15px;
+            min-height: 80px;
+        }
+
+        /* 線上訂位表單 (底部單線設計) */
+        #reserve {
+            padding: 100px 0;
+        }
+        .form-control {
+            border: none;
+            border-bottom: 1px solid #CCC;
+            border-radius: 0;
+            background: transparent;
+            padding: 15px 0;
+            box-shadow: none !important;
+        }
+        .form-control:focus {
+            border-bottom-color: var(--text-main);
+            background: transparent;
+        }
+        .btn-reserve {
+            background-color: var(--text-main);
+            color: #FFF;
+            border-radius: 50px;
+            padding: 12px 40px;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .btn-reserve:hover {
+            background-color: #1a252f;
+            color: #FFF;
+        }
+
+        /* RWD 調整 */
+        @media (max-width: 991.98px) {
+            #hero { padding-top: 120px; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-img-wrapper { transform: translateY(0); margin-top: 30px; }
+            .hero-img { width: 100%; }
+            
+            /* 縮小手機版各區塊的上下間距 */
+            .feature-section, #menu, #testimonials, #reserve { 
+                padding: 60px 0; 
+            }
+            
+            h2 { font-size: 1.8rem; }
+            
+            /* 優化錯位圖文在手機上的間距 */
+            .overlap-text-box { 
+                margin-top: -30px !important; 
+                margin-left: 0 !important; 
+                margin-right: 0 !important; 
+                padding: 1.5rem; 
+            }
+            .bg-text-watermark { font-size: 5rem; }
+            
+            /* 縮小選單項目的間距與字體 */
+            .menu-item { padding: 16px 0; }
+            .menu-title { font-size: 1.1rem; }
+        }
+
+        /* 手機版選單展開時的樣式優化：確保不覆蓋內容且提升閱讀性 */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: var(--bg-color);
+                padding: 1.5rem;
+                margin-top: 15px;
+                border-radius: 8px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            }
+        }
+
+        /* 導覽列滾動效果樣式 */
+        .navbar {
+            transition: all 0.4s ease; /* 增加過渡動畫讓變色更平滑 */
+        }
+        .navbar.scrolled {
+            background-color: var(--bg-color) !important; /* 滾動後變回背景色 */
+            padding-top: 15px !important; /* 滾動後縮小內距 */
+            padding-bottom: 15px !important;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* 加入細微陰影 */
+        }
+
+        /* 回到頂部按鈕樣式 */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-main);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            z-index: 1050;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        #backToTop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        #backToTop:hover {
+            transform: translateY(-5px);
+            background-color: #1a252f;
+            color: white;
+        }
+
+        /* 自定義輪播指示點樣式 (極簡圓點) */
+        .carousel-indicators [data-bs-target] {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--text-main);
+            border: 0; /* 移除預設邊框 */
+            margin: 0 6px;
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+        .carousel-indicators .active {
+            opacity: 0.8;
+            transform: scale(1.2); /* 當前圖片的圓點稍微放大 */
+        }
+
+        /* Footer 社群連結樣式 */
+        .social-link {
+            color: var(--text-main);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .social-link:hover {
+            color: var(--text-light);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top pt-4 px-4 bg-transparent z-3">
+        <div class="container-fluid">
+            <a class="navbar-brand en-serif fs-3" href="#">Aura.</a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link px-3" href="#features">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#menu">Menu</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#reserve">Reserve</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="container">
+        <div class="row align-items-center w-100">
+            <div class="col-lg-6 col-md-12">
+                <p class="en-serif text-uppercase mb-2" style="letter-spacing: 3px; color: var(--text-light);">Boutique Cafe</p>
+                <h1 class="hero-title">所有的美好，<br>都在一杯溫潤的光暈裡。</h1>
+                <p class="mt-4 text-secondary w-75">嚴選世界級精品莊園豆，搭配手工溫潤甜點。<br>在這裡，讓時間慢下來，享受專屬你的療癒時刻。</p>
+            </div>
+            <div class="col-lg-6 col-md-12 text-end hero-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafe Interior" class="hero-img">
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="feature-section container">
+        <div class="bg-text-watermark bg-text-right">COFFEE</div>
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Coffee Roasting" class="overlap-img">
+            </div>
+            <div class="col-lg-5">
+                <div class="overlap-text-box">
+                    <span class="en-serif fs-4 text-muted">01. Roasting</span>
+                    <h2 class="mt-2 mb-4">自家烘焙的偏執</h2>
+                    <p>每一顆豆子都承載著產地的風土。我們堅持自家小批次烘焙，精準掌握火候與時間的完美平衡。只為在熱水注下的那一刻，綻放出最乾淨、明亮的果酸與香氣，喚醒你的每一個早晨。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section container pt-0">
+        <div class="bg-text-watermark bg-text-left">DESSERT</div>
+        <div class="row align-items-center flex-lg-row-reverse">
+            <div class="col-lg-7 text-end">
+                <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Handmade Dessert" class="overlap-img">
+            </div>
+            <div class="col-lg-5">
+                <div class="overlap-text-box" style="margin-left: 0; margin-right: -40px;">
+                    <span class="en-serif fs-4 text-muted">02. Dessert</span>
+                    <h2 class="mt-2 mb-4">法式手作的溫柔</h2>
+                    <p>減糖配方，天然食材。將歐式甜點的精緻融入日系職人的細膩。無論是入口即化的生乳捲，還是外酥內軟的可麗露，都能完美襯托咖啡的層次，撫平生活中的微小焦慮。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="container">
+        <div class="text-center mb-5">
+            <h2 class="en-serif fs-1">Menu</h2>
+            <p class="text-muted">經典品項，用心呈現</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="menu-item">
+                    <div>
+                        <h3 class="menu-title">極光手沖單品 (衣索比亞 耶加雪菲)</h3>
+                        <p class="menu-desc">水洗 / 淺焙 / 茉莉花香、柑橘、蜂蜜尾韻</p>
+                    </div>
+                    <div class="menu-price">NT. 180</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3 class="menu-title">晨露小農拿鐵</h3>
+                        <p class="menu-desc">中深焙濃縮 / 嚴選台灣在地小農鮮乳</p>
+                    </div>
+                    <div class="menu-price">NT. 160</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3 class="menu-title">海鹽焦糖生乳巴斯克</h3>
+                        <p class="menu-desc">法國頂級鮮奶油 / 手工熬煮焦糖 / 半熟滑順口感</p>
+                    </div>
+                    <div class="menu-price">NT. 150</div>
+                </div>
+                <div class="menu-item">
+                    <div>
+                        <h3 class="menu-title">伯爵茶香可麗露</h3>
+                        <p class="menu-desc">外殼酥脆焦香 / 內餡富含大吉嶺伯爵茶香氣</p>
+                    </div>
+                    <div class="menu-price">NT. 90</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 菜單下方的咖啡圖片輪播 -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-10">
+                <div id="coffeeGallery" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <!-- 輪播指示點 -->
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="/img/Cheesecake500x500.png" class="d-block w-100 coffee-carousel-img" alt="Coffee Selection">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1506372023823-741c83b836fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100 coffee-carousel-img" alt="Latte Art">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100 coffee-carousel-img" alt="Pour Over Coffee">
+                        </div>
+                    </div>
+
+                    <!-- 左右切換按鈕 -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#coffeeGallery" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#coffeeGallery" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 更新後的客戶好評區 -->
+    <section id="testimonials" class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="https://i.pravatar.cc/150?u=a" class="testimonial-avatar" alt="顧客林小姐">
+                            <div class="quote-icon">“</div>
+                            <p class="testimonial-text serif-text">這間咖啡廳真的是週末放鬆的秘密基地！店裡的馬卡龍色系裝潢讓人感覺好療癒，而且直接線上訂位超級友善！</p>
+                            <span class="text-muted small">— 林小姐 (28歲)</span>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="https://i.pravatar.cc/150?u=b" class="testimonial-avatar" alt="顧客張太太">
+                            <div class="quote-icon">“</div>
+                            <p class="testimonial-text serif-text">平常工作壓力大，最喜歡來這裡點一杯手沖。喝得出來老闆在選豆和烘豆上的用心...是一間會想一直回訪的好店。</p>
+                            <span class="text-muted small">— 張太太 (38歲)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reserve" class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <h2 class="serif-text mb-2">預約您的療癒時光</h2>
+                <p class="text-muted mb-5">請填寫下方資訊，我們將為您保留專屬座位。</p>
+                
+                <form class="text-start">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <input type="text" class="form-control" placeholder="您的姓名 Name" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <select class="form-control" required>
+                                <option value="" disabled selected>用餐人數 Guests</option>
+                                <option value="1">1 位</option>
+                                <option value="2">2 位</option>
+                                <option value="3">3 位</option>
+                                <option value="4">4 位</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <input type="date" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <input type="time" class="form-control" required>
+                        </div>
+                        <div class="col-12 mb-5">
+                            <input type="text" class="form-control" placeholder="特殊需求 (選填) Special Requests">
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-reserve border-0">立刻線上訂位</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 border-top mt-5">
+        <div class="container">
+            <div class="row gy-5 justify-content-between mb-5">
+                <!-- 咖啡廳資訊 -->
+                <div class="col-lg-3">
+                    <h4 class="en-serif fs-3 mb-4">Aura.</h4>
+                    <div class="text-muted small">
+                        <p class="mb-2"><i class="bi bi-geo-alt me-2"></i>台北市大安區光影路 123 號</p>
+                        <p class="mb-2"><i class="bi bi-telephone me-2"></i>(02) 2345-6789</p>
+                        <p class="mb-0"><i class="bi bi-clock me-2"></i>Mon - Sun | 10:00 - 20:00</p>
+                    </div>
+                </div>
+
+                <!-- Google Map -->
+                <div class="col-lg-4">
+                    <h5 class="serif-text mb-3">探訪光影 Visit Us</h5>
+                    <div class="ratio ratio-16x9" style="border-radius: 8px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.902264585121!2d121.5434570760468!3d25.037463538161743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abd379a5dec7%3A0xcc37ca5e62706560!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A!5e0!3m2!1szh-TW!2stw!4v1718686200000!5m2!1szh-TW!2stw" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+
+                <!-- 訂閱電子報 -->
+                <div class="col-lg-4">
+                    <h5 class="serif-text mb-3">訂閱電子報 Subscribe</h5>
+                    <p class="text-muted small mb-4">獲取最新精品咖啡豆資訊與限時優惠，我們承諾不發送垃圾郵件。</p>
+                    <form id="newsletterForm" class="d-flex align-items-end">
+                        <input type="email" class="form-control me-2 py-2" placeholder="Email Address" required>
+                        <button type="submit" class="btn btn-reserve py-2 px-4" style="border-radius: 4px; white-space: nowrap;">訂閱</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 底部版權與社群 -->
+            <div class="pt-4 border-top d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="text-muted small mb-3 mb-md-0">&copy; 2026 Aura Cafe. All Rights Reserved.</p>
+                <div>
+                    <a href="#" class="social-link ms-md-4 me-4 me-md-0" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-link ms-md-4 me-4 me-md-0" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-link ms-md-4" aria-label="Line"><i class="bi bi-line"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 回到頂部按鈕 -->
+    <a href="#" id="backToTop">TOP</a>
+
+    <!-- 訂閱成功 Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="subscribeToast" class="toast border-0 shadow-sm" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bg-white text-dark border-0">
+                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                <strong class="me-auto">Aura Cafe</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bg-white pt-0">
+                感謝訂閱！您將會收到我們的最新消息。
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // 監聽滾動事件，動態切換 navbar 樣式
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            const topBtn = document.getElementById('backToTop');
+
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // 當下滑超過 400px 時顯示 TOP 按鈕
+            if (window.scrollY > 400) {
+                topBtn.classList.add('show');
+            } else {
+                topBtn.classList.remove('show');
+            }
+        });
+
+        // 處理電子報訂閱
+        const newsletterForm = document.getElementById('newsletterForm');
+        const subscribeToast = document.getElementById('subscribeToast');
+        if (newsletterForm && subscribeToast) {
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(subscribeToast);
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // 防止頁面重新整理
+                toastBootstrap.show(); // 顯示成功通知
+                newsletterForm.reset(); // 清空輸入框
+            });
+        }
+    </script>
+</body>
+</html>

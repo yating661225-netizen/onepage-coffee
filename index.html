@@ -146,6 +146,42 @@
             font-size: 1.2rem;
         }
 
+        /* 頁籤錯位排版樣式 */
+        .menu-nav-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+        .nav-link-custom {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+        .nav-link-custom.active {
+            color: var(--text-main);
+            border-bottom: 2px solid var(--text-main);
+        }
+        /* 錯位效果：偶數項位移 */
+        .nav-link-custom:nth-child(even) {
+            transform: translateY(15px);
+        }
+        .nav-link-custom:hover {
+            color: var(--text-main);
+            transform: translateY(-2px); /* 懸停時稍微上浮 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* 懸停時增加陰影 */
+        }
+        .nav-link-custom:active {
+            transform: scale(0.98); /* 點擊時輕微縮小 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* 點擊時增加陰影 */
+        }
+
         /* 菜單輪播圖片樣式 */
         .coffee-carousel-img {
             height: 450px;
@@ -236,6 +272,19 @@
             /* 縮小選單項目的間距與字體 */
             .menu-item { padding: 16px 0; }
             .menu-title { font-size: 1.1rem; }
+
+            /* 優化頁籤在手機上的錯位排版 */
+            .menu-nav-container {
+                gap: 1rem 0.5rem; /* 增加行間距 (row-gap) 避免換行時擠壓，縮小列間距 (column-gap) */
+                margin-bottom: 3rem;
+            }
+            .nav-link-custom {
+                font-size: 1rem;
+                padding: 10px 15px; /* 維持足夠的觸控面積 */
+            }
+            .nav-link-custom:nth-child(even) {
+                transform: translateY(10px); /* 稍微縮小位移量，確保換行後不會與下方元件重疊 */
+            }
         }
 
         /* 手機版選單展開時的樣式優化：確保不覆蓋內容且提升閱讀性 */
@@ -391,40 +440,94 @@
         </div>
     </section>
 
+
+
+    
     <section id="menu" class="container">
         <div class="text-center mb-5">
             <h2 class="en-serif fs-1">Menu</h2>
             <p class="text-muted">經典品項，用心呈現</p>
         </div>
+
+        <!-- 錯位排版頁籤 -->
+        <div class="nav menu-nav-container" id="menuTab" role="tablist">
+            <button class="nav-link-custom active" id="coffee-tab" data-bs-toggle="tab" data-bs-target="#coffee" type="button" role="tab">咖啡類</button>
+            <button class="nav-link-custom" id="sparkling-tab" data-bs-toggle="tab" data-bs-target="#sparkling" type="button" role="tab">氣泡飲</button>
+            <button class="nav-link-custom" id="milktea-tab" data-bs-toggle="tab" data-bs-target="#milktea" type="button" role="tab">奶茶類</button>
+            <button class="nav-link-custom" id="dessert-tab" data-bs-toggle="tab" data-bs-target="#dessert" type="button" role="tab">手做甜點</button>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-lg-8">
-                <div class="menu-item">
-                    <div>
-                        <h3 class="menu-title">極光手沖單品 (衣索比亞 耶加雪菲)</h3>
-                        <p class="menu-desc">水洗 / 淺焙 / 茉莉花香、柑橘、蜂蜜尾韻</p>
+                <div class="tab-content" id="menuTabContent">
+                    <!-- 咖啡類 -->
+                    <div class="tab-pane fade show active" id="coffee" role="tabpanel">
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">極光手沖單品 (衣索比亞 耶加雪菲)</h3>
+                                <p class="menu-desc">水洗 / 淺焙 / 茉莉花香、柑橘、蜂蜜尾韻</p>
+                            </div>
+                            <div class="menu-price">NT. 180</div>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">晨露小農拿鐵</h3>
+                                <p class="menu-desc">中深焙濃縮 / 嚴選台灣在地小農鮮乳</p>
+                            </div>
+                            <div class="menu-price">NT. 160</div>
+                        </div>
                     </div>
-                    <div class="menu-price">NT. 180</div>
-                </div>
-                <div class="menu-item">
-                    <div>
-                        <h3 class="menu-title">晨露小農拿鐵</h3>
-                        <p class="menu-desc">中深焙濃縮 / 嚴選台灣在地小農鮮乳</p>
+                    <!-- 氣泡飲 -->
+                    <div class="tab-pane fade" id="sparkling" role="tabpanel">
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">沁夏柚香金萱氣泡</h3>
+                                <p class="menu-desc">自家熬煮柚子醬 / 高山金萱茶湯 / 舒緩細緻氣泡</p>
+                            </div>
+                            <div class="menu-price">NT. 140</div>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">盛夏野莓玫瑰氣泡</h3>
+                                <p class="menu-desc">綜合野莓果泥 / 有機玫瑰水 / 沁涼爽口</p>
+                            </div>
+                            <div class="menu-price">NT. 150</div>
+                        </div>
                     </div>
-                    <div class="menu-price">NT. 160</div>
-                </div>
-                <div class="menu-item">
-                    <div>
-                        <h3 class="menu-title">海鹽焦糖生乳巴斯克</h3>
-                        <p class="menu-desc">法國頂級鮮奶油 / 手工熬煮焦糖 / 半熟滑順口感</p>
+                    <!-- 奶茶類 -->
+                    <div class="tab-pane fade" id="milktea" role="tabpanel">
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">皇家伯爵鍋煮奶茶</h3>
+                                <p class="menu-desc">英式伯爵茶葉現泡 / 濃醇鮮奶 / 佛手柑幽香</p>
+                            </div>
+                            <div class="menu-price">NT. 160</div>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">雲朵焦糖烤布蕾奶茶</h3>
+                                <p class="menu-desc">特製焦糖淋醬 / 厚實奶泡 / 鹹甜交織層次</p>
+                            </div>
+                            <div class="menu-price">NT. 150</div>
+                        </div>
                     </div>
-                    <div class="menu-price">NT. 150</div>
-                </div>
-                <div class="menu-item">
-                    <div>
-                        <h3 class="menu-title">伯爵茶香可麗露</h3>
-                        <p class="menu-desc">外殼酥脆焦香 / 內餡富含大吉嶺伯爵茶香氣</p>
+                    <!-- 手做甜點 -->
+                    <div class="tab-pane fade" id="dessert" role="tabpanel">
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">海鹽焦糖生乳巴斯克</h3>
+                                <p class="menu-desc">法國頂級鮮奶油 / 手工熬煮焦糖 / 半熟滑順口感</p>
+                            </div>
+                            <div class="menu-price">NT. 150</div>
+                        </div>
+                        <div class="menu-item">
+                            <div>
+                                <h3 class="menu-title">伯爵茶香可麗露</h3>
+                                <p class="menu-desc">外殼酥脆焦香 / 內餡富含大吉嶺伯爵茶香氣</p>
+                            </div>
+                            <div class="menu-price">NT. 90</div>
+                        </div>
                     </div>
-                    <div class="menu-price">NT. 90</div>
                 </div>
             </div>
         </div>

@@ -98,11 +98,17 @@
         }
 
         .hero-title {
-            font-size: 3.5rem;
+            font-size: clamp(2.4rem, 4vw, 3.5rem);
             font-weight: 500;
             line-height: 1.4;
             letter-spacing: 0.05em;
         }
+
+        /* 第二行不允許被拆字 */
+        .hero-title .line-2 {
+            white-space: nowrap;
+        }
+
 
         .hero-img-wrapper {
             position: relative;
@@ -522,7 +528,10 @@
         <div class="row align-items-center w-100">
             <div class="col-lg-6 col-md-12">
                 <p class="en-serif text-uppercase mb-2" style="letter-spacing: 3px; color: var(--text-light);">慢板咖啡</p>
-                <h1 class="hero-title">所有的美好，<br>都在一杯溫潤的光暈裡。</h1>
+                <h1 class="hero-title">
+                    <span>所有的美好</span><br>
+                    <span class="line-2">都在一杯溫潤的光暈裡</span>
+                </h1>
                 <p class="mt-4 text-secondary w-75">嚴選世界級精品莊園豆，搭配手工溫潤甜點。<br>在這裡，讓時間慢下來，享受專屬你的療癒時刻。</p>
             </div>
             <div class="col-lg-6 col-md-12 text-end hero-img-wrapper">
@@ -775,7 +784,7 @@
             <div class="row gy-5 justify-content-between mb-5">
                 <!-- 咖啡廳資訊 -->
                 <div class="col-lg-3">
-                    <h4 class="en-serif fs-3 mb-4">Aura.</h4>
+                    <h4 class="en-serif fs-3 mb-4">慢板</h4>
                     <div class="text-muted small">
                         <p class="mb-2"><i class="bi bi-geo-alt me-2"></i>台北市大安區光影路 123 號</p>
                         <p class="mb-2"><i class="bi bi-telephone me-2"></i>(02) 2345-6789</p>
@@ -829,7 +838,7 @@
         <div id="subscribeToast" class="toast border-0 shadow-sm" role="alert" aria-live="assertive" aria-atomic="true">
             <div class="toast-header bg-white text-dark border-0">
                 <i class="bi bi-check-circle-fill text-success me-2"></i>
-                <strong class="me-auto">Aura Cafe</strong>
+                <strong class="me-auto">慢板咖啡</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
             </div>
             <div class="toast-body bg-white pt-0">

@@ -182,11 +182,19 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.08); /* 點擊時增加陰影 */
         }
 
-        /* 菜單輪播圖片樣式 */
-        .coffee-carousel-img {
+        /* 菜單動態輪播圖片樣式 */
+        .menu-gallery-img {
             height: 450px;
             object-fit: cover;
             border-radius: 12px;
+        }
+
+        /* Logo SVG 樣式優化 */
+        .navbar-brand svg {
+            height: 32px; /* 調整 Logo 高度 */
+            width: auto;
+            margin-right: 12px;
+            fill: currentColor; /* 讓 SVG 繼承文字顏色 */
         }
 
         /* 客戶好評區 (更新) */
@@ -381,7 +389,14 @@
 
     <nav class="navbar navbar-expand-lg navbar-light fixed-top pt-4 px-4 bg-transparent z-3">
         <div class="container-fluid">
-            <a class="navbar-brand en-serif fs-3" href="#">Aura.</a>
+            <a class="navbar-brand en-serif fs-3 d-flex align-items-center" href="#">
+                <!-- 將 SVG 原始碼貼在下方 -->
+                <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/1999/xlink">
+                    <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="5" fill="none" />
+                    <path d="M30 50 L70 50 M50 30 L50 70" stroke="currentColor" stroke-width="5" />
+                </svg>
+                <span>Aura.</span>
+            </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -403,7 +418,7 @@
                 <p class="mt-4 text-secondary w-75">嚴選世界級精品莊園豆，搭配手工溫潤甜點。<br>在這裡，讓時間慢下來，享受專屬你的療癒時刻。</p>
             </div>
             <div class="col-lg-6 col-md-12 text-end hero-img-wrapper">
-                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cafe Interior" class="hero-img">
+                <img src="/img/banner2.png" alt="Cafe Interior" class="hero-img">
             </div>
         </div>
     </section>
@@ -532,38 +547,40 @@
             </div>
         </div>
 
-        <!-- 菜單下方的咖啡圖片輪播 -->
+        <!-- 菜單下方的動態圖片輪播 (依頁籤切換) -->
         <div class="row justify-content-center mt-5">
             <div class="col-lg-10">
-                <div id="coffeeGallery" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div id="menuGallery" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="hover">
                     <!-- 輪播指示點 -->
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#coffeeGallery" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="2" aria-label="Slide 3"></button>
                     </div>
 
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/img/Cheesecake500x500.png" class="d-block w-100 coffee-carousel-img" alt="Coffee Selection">
+                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80" class="d-block w-100 menu-gallery-img" alt="精品手沖">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>精品手沖單品</h5>
+                                <p>品味產地最純粹的風土花果香氣。</p>
+                            </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1506372023823-741c83b836fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100 coffee-carousel-img" alt="Latte Art">
+                            <img src="https://images.unsplash.com/photo-1506372023823-741c83b836fe?auto=format&fit=crop&w=1200&q=80" class="d-block w-100 menu-gallery-img" alt="晨露拿鐵">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>晨露小農拿鐵</h5>
+                                <p>細緻奶泡與濃縮咖啡的完美交融。</p>
+                            </div>
                         </div>
                         <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="d-block w-100 coffee-carousel-img" alt="Pour Over Coffee">
+                            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80" class="d-block w-100 menu-gallery-img" alt="低溫萃取冰滴">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>低溫萃取冰滴</h5>
+                                <p>歷經 12 小時滴濾，醇厚不酸澀。</p>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- 左右切換按鈕 -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#coffeeGallery" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#coffeeGallery" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -723,6 +740,61 @@
                 toastBootstrap.show(); // 顯示成功通知
                 newsletterForm.reset(); // 清空輸入框
             });
+        }
+
+        // 菜單與輪播圖片聯動邏輯
+        const menuGalleryData = {
+            'coffee': [
+                { src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80', title: '精品手沖單品', desc: '品味產地最純粹的風土花果香氣。' },
+                { src: 'https://images.unsplash.com/photo-1506372023823-741c83b836fe?auto=format&fit=crop&w=1200&q=80', title: '晨露小農拿鐵', desc: '細緻奶泡與濃縮咖啡的完美交融。' },
+                { src: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80', title: '低溫萃取冰滴', desc: '歷經 12 小時滴濾，醇厚不酸澀。' }
+            ],
+            'sparkling': [
+                { src: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=1200&q=80', title: '柚香金萱氣泡', desc: '茶香與果香在氣泡中綻放。' },
+                { src: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=1200&q=80', title: '野莓玫瑰氣泡', desc: '如寶石般璀璨的酸甜層次。' },
+                { src: 'https://images.unsplash.com/photo-1543007630-9710e40813f9?auto=format&fit=crop&w=1200&q=80', title: '沁涼薄荷氣泡', desc: '掃除夏日燥熱的極致清爽。' }
+            ],
+            'milktea': [
+                { src: 'https://images.unsplash.com/photo-1544787210-2211d64b367d?auto=format&fit=crop&w=1200&q=80', title: '皇家鍋煮奶茶', desc: '濃郁茶湯與醇厚鮮乳的經典。' },
+                { src: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=1200&q=80', title: '焦糖布蕾奶茶', desc: '鹹甜交織的厚實奶泡口感。' },
+                { src: 'https://images.unsplash.com/photo-1594631252845-29fc4586c552?auto=format&fit=crop&w=1200&q=80', title: '靜岡抹茶歐蕾', desc: '選用正宗抹茶，回甘悠長。' }
+            ],
+            'dessert': [
+                { src: '/img/Cheesecake500x500.png', title: '海鹽焦糖巴斯克', desc: '半熟滑順口感，手工焦糖餘韻。' },
+                { src: 'https://images.unsplash.com/photo-1563729781172-c65116a5a07c?auto=format&fit=crop&w=1200&q=80', title: '經典提拉米蘇', desc: '馬斯卡彭與濃縮咖啡的完美結合。' },
+                { src: 'https://images.unsplash.com/photo-1571115160359-541221191f6d?auto=format&fit=crop&w=1200&q=80', title: '季節限定水果塔', desc: '嚴選當季果實，酥脆塔皮口感。' }
+            ]
+        };
+
+        // 監聽所有導覽頁籤切換
+        const tabElements = document.querySelectorAll('.nav-link-custom');
+        tabElements.forEach(tab => {
+            tab.addEventListener('shown.bs.tab', function (event) {
+                const category = event.target.id.replace('-tab', '');
+                updateMenuGallery(category);
+            });
+        });
+
+        function updateMenuGallery(category) {
+            const data = menuGalleryData[category];
+            const items = document.querySelectorAll('#menuGallery .carousel-item');
+            
+            items.forEach((item, index) => {
+                const img = item.querySelector('img');
+                const h5 = item.querySelector('h5');
+                const p = item.querySelector('p');
+                
+                // 更新內容
+                img.src = data[index].src;
+                img.alt = data[index].title;
+                h5.textContent = data[index].title;
+                p.textContent = data[index].desc;
+            });
+
+            // 切換分類後自動跳回第一張圖片
+            const carouselEl = document.getElementById('menuGallery');
+            const carousel = bootstrap.Carousel.getInstance(carouselEl);
+            carousel.to(0);
         }
     </script>
 </body>

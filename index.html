@@ -255,35 +255,168 @@
             border-radius: 12px;
         }
 
-        /* 客戶好評區 (更新) */
         #testimonials {
             padding: 100px 0;
+        }
+
+        .testimonial-wrapper {
+            position: relative;
+        }
+
+        /* 卡片列 */
+        #testimonial-list {
+
+            display: flex;
+
+            gap: 28px;
+
+            overflow-x: auto;
+
+            scroll-behavior: smooth;
+
+            scrollbar-width: none;
+
+            padding: 20px 70px;
+
+        }
+
+        #testimonial-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 卡片 */
+        .testimonial-card {
+
+            flex: 0 0 360px;
+
+            background: white;
+
+            border-radius: 24px;
+
+            padding: 40px 32px;
+
             text-align: center;
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, .08);
+
+            transition: .3s;
+        }
+
+        .testimonial-card:hover {
+
+            transform: translateY(-8px);
+
         }
 
         .testimonial-avatar {
-            width: 80px;
-            height: 80px;
+
+            width: 90px;
+
+            height: 90px;
+
             border-radius: 50%;
+
             object-fit: cover;
+
             margin-bottom: 20px;
-            border: 3px solid #fff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
         }
 
         .quote-icon {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3rem;
-            color: #D4DFE6;
-            line-height: 0;
-            margin-bottom: 15px;
+
+            font-size: 72px;
+
+            color: #d7b899;
+
+            line-height: 1;
+
+            margin-bottom: 10px;
+
         }
 
         .testimonial-text {
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 15px;
-            min-height: 80px;
+
+            line-height: 1.9;
+
+            margin-bottom: 20px;
+
+        }
+
+        .testimonial-user {
+
+            color: #888;
+
+        }
+
+        /* 左右按鈕 */
+        .slide-btn {
+
+            position: absolute;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 52px;
+
+            height: 52px;
+
+            border: none;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, .1);
+
+            z-index: 20;
+
+            cursor: pointer;
+
+        }
+
+        .prev {
+
+            left: 0;
+
+        }
+
+        .next {
+
+            right: 0;
+
+        }
+
+        .slide-btn:hover {
+
+            transform:
+                translateY(-50%) scale(1.08);
+
+        }
+
+        /* 手機 */
+        @media(max-width:768px) {
+
+            .slide-btn {
+
+                display: none;
+
+            }
+
+            #testimonial-list {
+
+                padding: 10px;
+
+            }
+
+            .testimonial-card {
+
+                flex: 0 0 85vw;
+
+            }
+
         }
 
 
@@ -840,27 +973,30 @@
 
     <!-- 客戶好評區 -->
     <section id="testimonials" class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://i.pravatar.cc/150?u=a" class="testimonial-avatar" alt="顧客林小姐">
-                            <div class="quote-icon">“</div>
-                            <p class="testimonial-text serif-text">這間咖啡廳真的是週末放鬆的秘密基地！店裡的馬卡龍色系裝潢讓人感覺好療癒，而且直接線上訂位超級友善！</p>
-                            <span class="text-muted small">— 林小姐 (28歲)</span>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://i.pravatar.cc/150?u=b" class="testimonial-avatar" alt="顧客張太太">
-                            <div class="quote-icon">“</div>
-                            <p class="testimonial-text serif-text">平常工作壓力大，最喜歡來這裡點一杯手沖。喝得出來老闆在選豆和烘豆上的用心...是一間會想一直回訪的好店。
-                            </p>
-                            <span class="text-muted small">— 張太太 (38歲)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="section-title text-center mb-5">
+            <h2>顧客評論</h2>
+            <p class="text-muted">
+                每一段回饋，都是我們持續沖煮美好的理由
+            </p>
         </div>
+        <div class="testimonial-wrapper">
+
+            <button class="slide-btn prev">
+                ❮
+            </button>
+
+            <div id="testimonial-list">
+                <!-- JS -->
+            </div>
+
+            <button class="slide-btn next">
+                ❯
+            </button>
+
+        </div>
+
+
     </section>
 
     <section id="reserve" class="container py-5">
@@ -1013,6 +1149,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         // 監聽滾動事件，動態切換 navbar 樣式
         window.addEventListener('scroll', function () {
@@ -1032,6 +1169,109 @@
                 topBtn.classList.remove('show');
             }
         });
+
+        //客戶好評區
+
+        const testimonials = [
+
+            {
+                avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+                name: "林小姐 (28歲)",
+
+                text:
+                    "這間咖啡廳真的是週末放鬆的秘密基地！店裡的馬卡龍色系裝潢讓人感覺好療癒，而且直接線上訂位超級友善！"
+            },
+
+            {
+                avatar: "https://randomuser.me/api/portraits/women/32.jpg",
+                name: "張太太 (38歲)",
+
+                text:
+                    "平常工作壓力大，最喜歡來這裡點一杯手沖。喝得出來老闆在選豆和烘豆上的用心，是一間會想一直回訪的好店。"
+            },
+
+            {
+                avatar: "https://randomuser.me/api/portraits/men/28.jpg",
+                name: "王先生 (31歲)",
+
+                text:
+                    "不只是咖啡好喝，整個空間的光線和氛圍都讓人很舒服，每次來都有種慢下來生活的感覺。"
+            },
+
+            {
+                avatar: "https://randomuser.me/api/portraits/women/68.jpg",
+                name: "陳小姐 (26歲)",
+
+                text:
+                    "和朋友一起來聊天很舒服，甜點跟咖啡搭配得很剛好。"
+            },
+
+            {
+                avatar: "https://randomuser.me/api/portraits/men/53.jpg",
+                name: "李先生 (34歲)",
+
+                text:
+                    "已經回訪很多次，每次都有不同的驚喜。"
+            }
+
+        ];
+
+        const container =
+            document.getElementById("testimonial-list");
+
+        function createTestimonial(item) {
+    return `
+        <div class="testimonial-card">
+            <img src="${item.avatar}" class="testimonial-avatar" />
+
+            <div class="quote-icon">“</div>
+
+            <p class="testimonial-text">
+                ${item.text}
+            </p>
+
+            <span class="testimonial-user">
+                — ${item.name}
+            </span>
+        </div>
+    `;
+}
+
+function renderTestimonials() {
+    container.innerHTML = testimonials.map(createTestimonial).join("");
+}
+        renderTestimonials();
+
+        /* 左右滑動 */
+
+        document
+            .querySelector(".next")
+            .onclick = () => {
+
+                container.scrollBy({
+
+                    left: 420,
+
+                    behavior: "smooth"
+
+                });
+
+            };
+
+        document
+            .querySelector(".prev")
+            .onclick = () => {
+
+                container.scrollBy({
+
+                    left: -420,
+
+                    behavior: "smooth"
+
+                });
+
+            };
+
 
         // 處理電子報訂閱
         const newsletterForm = document.getElementById('newsletterForm');

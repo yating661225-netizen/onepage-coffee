@@ -848,6 +848,69 @@
 .brand-story-section .btn:hover {
     transform: translateY(-2px);
 }
+
+#menu {
+    position: relative;
+}
+
+/* 浮動容器 */
+.menu-cup-floating {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    width: 150px;
+    pointer-events: none;
+    opacity: 0.5;  /* 透明度 */
+    z-index: 1;
+}
+
+/* 圖片本體 */
+.menu-cup-floating img {
+    width: 100%;
+    height: auto;
+
+    /* 關鍵：不規則橢圓 */
+    border-radius: 55% 45% 60% 40% / 60% 40% 60% 40%;
+
+    filter: blur(0.2px) drop-shadow(0 10px 20px rgba(0,0,0,0.08));
+
+    animation: cupMorph 8s ease-in-out infinite;
+    transform-origin: center;
+}
+
+/* 柔性拉伸動畫 */
+@keyframes cupMorph {
+    0% {
+        transform: scale(1, 1);
+        border-radius: 55% 45% 60% 40% / 60% 40% 60% 40%;
+    }
+
+    25% {
+        transform: scale(1.08, 0.95);
+        border-radius: 60% 40% 55% 45% / 55% 45% 65% 35%;
+    }
+
+    50% {
+        transform: scale(0.95, 1.05);
+        border-radius: 45% 55% 40% 60% / 60% 40% 50% 50%;
+    }
+
+    75% {
+        transform: scale(1.05, 0.98);
+        border-radius: 58% 42% 62% 38% / 55% 45% 60% 40%;
+    }
+
+    100% {
+        transform: scale(1, 1);
+        border-radius: 55% 45% 60% 40% / 60% 40% 60% 40%;
+    }
+}
+/* 手機版隱藏 */
+@media (max-width: 768px) {
+    .menu-cup-floating {
+        display: none;
+    }
+}
     </style>
 </head>
 
@@ -949,6 +1012,10 @@
 
 
     <section id="menu" class="container">
+<div class="menu-cup-floating">
+    <img src="/assets/img/coffeecup2.png" alt="brand cup">
+</div>
+        
         <div class="text-center mb-5">
             <h2 class="en-serif fs-1">Menu</h2>
             <p class="text-muted">經典品項，用心呈現</p>

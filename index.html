@@ -255,16 +255,6 @@
             border-radius: 12px;
         }
 
-        /* Logo SVG 樣式優化 */
-        .navbar-brand svg {
-            height: 32px;
-            /* 調整 Logo 高度 */
-            width: auto;
-            margin-right: 12px;
-            fill: currentColor;
-            /* 讓 SVG 繼承文字顏色 */
-        }
-
         /* 客戶好評區 (更新) */
         #testimonials {
             padding: 100px 0;
@@ -400,17 +390,6 @@
             }
         }
 
-        /* 手機版選單展開時的樣式優化：確保不覆蓋內容且提升閱讀性 */
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: var(--bg-color);
-                padding: 1.5rem;
-                margin-top: 15px;
-                border-radius: 8px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            }
-        }
-
         /* 導覽列滾動效果樣式 */
         .navbar {
             transition: all 0.4s ease;
@@ -507,7 +486,6 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top pt-4 px-4 bg-transparent z-3">
         <div class="container-fluid">
             <a class="navbar-brand en-serif fs-3 d-flex align-items-center" href="#">
-                <!-- 將 SVG 原始碼貼在下方 -->
                 <img src="assets/icons/logo3.svg" alt="Logo">
                 <span>Coffee</span>
             </a>

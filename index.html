@@ -789,45 +789,65 @@
     letter-spacing: 1px;
 }
 
-        /* ===== BRAND STORY（重點升級） ===== */
-        .brand-story-section {
-            position: relative;
-            height: 75vh;
-            background: url("/assets/img/shoplogo.png") center/cover no-repeat;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            color: white;
-            text-align: left;
-        }
+        /* ===== BRAND STORY ===== */
+.brand-story-section {
+    position: relative;
+    height: 85vh;
+    background: url("/assets/img/shoplogo.png") center/cover no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
 
-        .brand-story-section .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-        }
+/* 黑色電影遮罩（會動） */
+.brand-story-section .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    transition: opacity 1s ease;
+}
 
-        .brand-story-section .content {
-            position: relative;
-            z-index: 2;
-        }
+/* 內容 */
+.brand-story-section .content {
+    position: relative;
+    z-index: 2;
+    color: white;
+}
 
-        .brand-story-section h2 {
-            font-size: 2.2rem;
-            margin-top: 10px;
-        }
+/* 初始：全部隱藏 */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(8px);
+    transition: all 1s ease;
+}
 
-        .brand-story-section p {
-            opacity: 0.9;
-        }
+/* 進場 */
+.reveal.show {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
 
-        .brand-story-section .btn {
-            background: white;
-            color: black;
-            border-radius: 999px;
-            padding: 10px 20px;
-            margin-top: 15px;
-        }
+/* 延遲節奏 */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+/* 按鈕電影感 */
+.brand-story-section .btn {
+    background: white;
+    color: black;
+    border-radius: 999px;
+    padding: 10px 22px;
+    margin-top: 15px;
+    transition: all 0.4s ease;
+}
+
+.brand-story-section .btn:hover {
+    transform: translateY(-2px);
+}
     </style>
 </head>
 
@@ -878,20 +898,19 @@
     <div class="overlay"></div>
 
     <div class="container content">
-        <p class="en-serif">About Adagio Café</p>
+        <p class="en-serif reveal">About Adagio Café</p>
 
-        <h2>
+        <h2 class="reveal delay-1">
             咖啡不是提神工具，<br>
             而是讓生活慢下來的理由
         </h2>
 
-        <p class="mt-3">
+        <p class="mt-3 reveal delay-2">
             從選豆、烘焙到甜點，我們把每個細節做到剛剛好。
         </p>
 
-        <a href="#menu" class="btn">探索風味</a>
+        <a href="#menu" class="btn reveal delay-3">探索風味</a>
     </div>
-    
 </section>
 
     <section id="features" class="feature-section container">
@@ -1430,60 +1449,43 @@
             }
 
         ];
-
         const container =
             document.getElementById("testimonial-list");
-
         function createTestimonial(item) {
             return `
                 <div class="testimonial-card">
                     <img src="${item.avatar}" class="testimonial-avatar" />
-
                     <div class="quote-icon">“</div>
-
                     <p class="testimonial-text">
                         ${item.text}
                     </p>
-
                     <span class="testimonial-user">
                         — ${item.name}
                     </span>
                 </div>
             `;
-}
+        }
         function renderTestimonials() {
             container.innerHTML = testimonials.map(createTestimonial).join("");
         }
         renderTestimonials();
 
         /* 左右滑動 */
-
         document
             .querySelector(".next")
             .onclick = () => {
-
                 container.scrollBy({
-
                     left: 420,
-
                     behavior: "smooth"
-
                 });
-
             };
-
         document
             .querySelector(".prev")
             .onclick = () => {
-
                 container.scrollBy({
-
                     left: -420,
-
                     behavior: "smooth"
-
                 });
-
             };
 
 
@@ -1558,6 +1560,25 @@
             const modal = new bootstrap.Modal(document.getElementById('reserveModal'));
             modal.show();
         }
+
+        // brand-story 電影進場動畫
+        const reveals = document.querySelectorAll(".reveal");
+        const brandSection = document.querySelector(".brand-story-section");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        reveals.forEach(el => el.classList.add("show"));
+                    }
+                });
+            },
+            {
+                threshold: 0.35
+            }
+        );
+
+observer.observe(brandSection);
     </script>
 </body>
 

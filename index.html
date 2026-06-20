@@ -714,51 +714,45 @@
     letter-spacing: 1px;
 }
 
-.store-ambience {
-    position: relative;
-    height: 70vh;
-    background-image: url("/assets/img/shoplogo.png");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* 進階視覺感 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-}
+        /* ===== BRAND STORY（重點升級） ===== */
+        .brand-story-section {
+            position: relative;
+            height: 75vh;
+            background: url("/assets/img/shoplogo.png") center/cover no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: left;
+        }
 
-.store-ambience .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.45);
-}
+        .brand-story-section .overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+        }
 
-.store-ambience .content {
-    position: relative;
-    z-index: 2;
-    max-width: 600px;
-    padding: 20px;
-}
+        .brand-story-section .content {
+            position: relative;
+            z-index: 2;
+        }
 
-.store-ambience h2 {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
+        .brand-story-section h2 {
+            font-size: 2.2rem;
+            margin-top: 10px;
+        }
 
-.store-ambience p {
-    opacity: 0.9;
-    margin-bottom: 20px;
-}
+        .brand-story-section p {
+            opacity: 0.9;
+        }
 
-.store-ambience .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background: white;
-    color: black;
-    text-decoration: none;
-    border-radius: 999px;
-}
+        .brand-story-section .btn {
+            background: white;
+            color: black;
+            border-radius: 999px;
+            padding: 10px 20px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 
@@ -804,13 +798,23 @@
         </div>
     </section>
 
-    <section class="store-ambience">
+<!-- ☕ BRAND STORY（敘事核心） -->
+<section class="brand-story-section">
     <div class="overlay"></div>
 
-    <div class="content">
-        <h2>在城市的一角，找到你的安靜時刻</h2>
-        <p>一杯咖啡，一段屬於自己的時間。</p>
-        <a href="#menu" class="btn">探索菜單</a>
+    <div class="container content">
+        <p class="en-serif">About Adagio Café</p>
+
+        <h2>
+            咖啡不是提神工具，<br>
+            而是讓生活慢下來的理由
+        </h2>
+
+        <p class="mt-3">
+            從選豆、烘焙到甜點，我們把每個細節做到剛剛好。
+        </p>
+
+        <a href="#menu" class="btn">探索風味</a>
     </div>
 </section>
 
@@ -1042,7 +1046,7 @@
             追蹤我們的日常，也期待你分享屬於你的愜意
         </p>
         <p class="en-serif text-secondary">
-            @blank_cafe_space
+            @Adagio_cafe_space
         </p>
     </div>
 

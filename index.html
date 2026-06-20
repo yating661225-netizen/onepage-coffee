@@ -661,6 +661,59 @@
             color: var(--text-light);
             transform: translateY(-3px);
         }
+
+/* ===== Menu IG 風產品卡片區 ===== */
+
+.menu-gallery-section {
+    padding-top: 40px;
+}
+
+.product-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* ⭐ 正方形核心 */
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.product-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+/* hover 動態放大 */
+.product-card:hover img {
+    transform: scale(1.08);
+}
+
+/* overlay 文字 */
+.product-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 14px;
+    background: linear-gradient(to top, rgba(0,0,0,0.35), transparent);
+    color: white;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-overlay h6 {
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+}
+
     </style>
 </head>
 
@@ -925,50 +978,60 @@
             </div>
         </div>
 
-        <!-- 菜單下方的動態圖片輪播 (依頁籤切換) -->
-        <div class="row justify-content-center mt-5">
-            <div class="col-lg-10">
-                <div id="menuGallery" class="carousel slide carousel-fade" data-bs-ride="carousel"
-                    data-bs-interval="3000" data-bs-pause="hover">
-                    <!-- 輪播指示點 -->
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="0" class="active"
-                            aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="1"
-                            aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#menuGallery" data-bs-slide-to="2"
-                            aria-label="Slide 3"></button>
-                    </div>
+<!-- 菜單視覺區（卡片牆） -->
+<div class="menu-gallery-section mt-5">
 
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80"
-                                class="d-block w-100 menu-gallery-img" alt="精品手沖">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>精品手沖單品</h5>
-                                <p>品味產地最純粹的風土花果香氣。</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1506372023823-741c83b836fe?auto=format&fit=crop&w=1200&q=80"
-                                class="d-block w-100 menu-gallery-img" alt="晨露拿鐵">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>晨露小農拿鐵</h5>
-                                <p>細緻奶泡與濃縮咖啡的完美交融。</p>
-                            </div>
-                        </div>
-                        <div class="carousel-item">
-                            <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=1200&q=80"
-                                class="d-block w-100 menu-gallery-img" alt="低溫萃取冰滴">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>低溫萃取冰滴</h5>
-                                <p>歷經 12 小時滴濾，醇厚不酸澀。</p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- 上方標語 -->
+    <div class="text-center mb-4">
+        <p class="text-muted mb-1">
+            追蹤我們的日常，也期待你分享屬於你的愜意
+        </p>
+        <p class="en-serif text-secondary">
+            @blank_cafe_space
+        </p>
+    </div>
+
+    <!-- 產品卡片 -->
+    <div class="row g-4 justify-content-center">
+
+        <div class="col-6 col-lg-3">
+            <div class="product-card">
+                <img src="/assets/img/coffee.png">
+                <div class="product-overlay">
+                    <h6>精品手沖</h6>
                 </div>
             </div>
         </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="product-card">
+                <img src="/assets/img/Peach .png">
+                <div class="product-overlay">
+                    <h6>氣泡飲</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="product-card">
+                <img src="/assets/img/milktea.png">
+                <div class="product-overlay">
+                    <h6>奶茶</h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-lg-3">
+            <div class="product-card">
+                <img src="/assets/img/Basque.png">
+                <div class="product-overlay">
+                    <h6>手做甜點</h6>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
     </section>
 
     <!-- 客戶好評區 -->
@@ -1220,26 +1283,25 @@
             document.getElementById("testimonial-list");
 
         function createTestimonial(item) {
-    return `
-        <div class="testimonial-card">
-            <img src="${item.avatar}" class="testimonial-avatar" />
+            return `
+                <div class="testimonial-card">
+                    <img src="${item.avatar}" class="testimonial-avatar" />
 
-            <div class="quote-icon">“</div>
+                    <div class="quote-icon">“</div>
 
-            <p class="testimonial-text">
-                ${item.text}
-            </p>
+                    <p class="testimonial-text">
+                        ${item.text}
+                    </p>
 
-            <span class="testimonial-user">
-                — ${item.name}
-            </span>
-        </div>
-    `;
+                    <span class="testimonial-user">
+                        — ${item.name}
+                    </span>
+                </div>
+            `;
 }
-
-function renderTestimonials() {
-    container.innerHTML = testimonials.map(createTestimonial).join("");
-}
+        function renderTestimonials() {
+            container.innerHTML = testimonials.map(createTestimonial).join("");
+        }
         renderTestimonials();
 
         /* 左右滑動 */

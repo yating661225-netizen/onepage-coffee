@@ -286,6 +286,61 @@
             min-height: 80px;
         }
 
+
+        /* 廣告卡片外框 */
+        .ad-card {
+            background: #fff;
+            max-width: 900px;
+            margin: 0 auto;
+            transition: all 0.4s ease;
+        }
+
+        /* hover 微浮起 */
+        .ad-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .img-wrap {
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+        }
+
+        /* 左側圖片 */
+        .ad-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 右側內容 */
+        .ad-content h2 {
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* 按鈕微優化 */
+        .btn-reserve {
+            border-radius: 999px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reserve:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 手機版優化 */
+        @media (max-width: 768px) {
+            .ad-content {
+                text-align: center !important;
+            }
+
+            .ad-image {
+                min-height: 220px;
+            }
+        }
+
         /* 線上訂位表單 (底部單線設計) */
         #reserve {
             padding: 100px 0;
@@ -810,43 +865,86 @@
         </div>
     </section>
 
-    <section id="reserve" class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <h2 class="serif-text mb-2">預約您的療癒時光</h2>
-                <p class="text-muted mb-5">請填寫下方資訊，我們將為您保留專屬座位。</p>
+    <section id="reserve" class="container py-5">
 
-                <form class="text-start">
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <input type="text" class="form-control" placeholder="您的姓名 Name" required>
+        <div class="ad-card row align-items-center shadow-sm rounded overflow-hidden">
+
+            <!-- 左側圖片 -->
+            <div class="col-md-6 p-0">
+                <div class="img-wrap">
+                    <img src="assets/img/ad1.png" alt="立即預約優惠" class="ad-image">
+                </div>
+            </div>
+
+            <!-- 右側內容 -->
+            <div class="col-md-6 p-4 ad-content text-center text-md-start">
+
+                <h2 class="serif-text mb-3">預約你的療癒時光</h2>
+
+                <p class="text-muted mb-4">
+                    專屬座位・靜謐空間・限量時段<br>
+                    讓每一次停留都更有溫度
+                </p>
+
+                <button class="btn btn-reserve px-4 py-2" onclick="openReserveModal()">
+                    立即預約
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="modal fade" id="reserveModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content p-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title serif-text">線上預約</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- reserve form -->
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <input type="text" class="form-control" placeholder="您的姓名 Name">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <select class="form-control">
+                                    <option>用餐人數 Guests</option>
+                                    <option>1 位</option>
+                                    <option>2 位</option>
+                                    <option>3 位</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <input type="date" class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <input type="time" class="form-control">
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <input type="text" class="form-control" placeholder="特殊需求">
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-reserve">
+                                    送出預約
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-4">
-                            <select class="form-control" required>
-                                <option value="" disabled selected>用餐人數 Guests</option>
-                                <option value="1">1 位</option>
-                                <option value="2">2 位</option>
-                                <option value="3">3 位</option>
-                                <option value="4">4 位</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <input type="date" class="form-control" required>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <input type="time" class="form-control" required>
-                        </div>
-                        <div class="col-12 mb-5">
-                            <input type="text" class="form-control" placeholder="特殊需求 (選填) Special Requests">
-                        </div>
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-reserve border-0">立刻線上訂位</button>
-                        </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+
             </div>
         </div>
-    </section>
+    </div>
 
     <footer class="py-5 border-top mt-5">
         <div class="container">
@@ -1002,6 +1100,11 @@
             const carouselEl = document.getElementById('menuGallery');
             const carousel = bootstrap.Carousel.getInstance(carouselEl);
             carousel.to(0);
+        }
+
+        function openReserveModal() {
+            const modal = new bootstrap.Modal(document.getElementById('reserveModal'));
+            modal.show();
         }
     </script>
 </body>

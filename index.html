@@ -420,6 +420,81 @@
         }
 
 
+        /* ===== Reserve 區升級版 ===== */
+
+.reserve-section {
+    padding: 100px 0;
+}
+
+/* 主卡片 */
+.reserve-card {
+    border-radius: 20px;
+    background: #fff;
+}
+
+/* 左側圖片 */
+.reserve-media {
+    position: relative;
+    overflow: hidden;
+    min-height: 420px;
+}
+
+.reserve-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.reserve-card:hover .reserve-media img {
+    transform: scale(1.05);
+}
+
+/* 遮罩 */
+.media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.1)
+    );
+}
+
+
+/* 右側內容 */
+.reserve-content h2 {
+    font-size: 2rem;
+    line-height: 1.4;
+}
+
+/* CTA 按鈕（加強版） */
+.btn-reserve {
+    background-color: var(--text-main);
+    color: #fff;
+    border-radius: 999px;
+    padding: 12px 32px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.btn-reserve:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    background-color: #1a252f;
+}
+
+/* 手機版 */
+@media (max-width: 991px) {
+    .reserve-media {
+        min-height: 260px;
+    }
+
+    .reserve-content {
+        text-align: center;
+    }
+}
+
         /* 廣告卡片外框 */
         .ad-card {
             background: #fff;
@@ -816,6 +891,7 @@
 
         <a href="#menu" class="btn">探索風味</a>
     </div>
+    
 </section>
 
     <section id="features" class="feature-section container">
@@ -1121,36 +1197,53 @@
 
     </section>
 
-    <section id="reserve" class="container py-5">
 
-        <div class="ad-card row align-items-center shadow-sm rounded overflow-hidden">
 
-            <!-- 左側圖片 -->
-            <div class="col-md-6 p-0">
-                <div class="img-wrap">
-                    <img src="assets/img/ad1.png" alt="立即預約優惠" class="ad-image">
-                </div>
-            </div>
+    <!-- 預約區 -->
 
-            <!-- 右側內容 -->
-            <div class="col-md-6 p-4 ad-content text-center text-md-start">
+    <section id="reserve" class="reserve-section container py-5">
 
-                <h2 class="serif-text mb-3">預約你的療癒時光</h2>
+    <div class="reserve-card row align-items-stretch shadow-sm overflow-hidden">
 
-                <p class="text-muted mb-4">
-                    專屬座位・靜謐空間・限量時段<br>
-                    讓每一次停留都更有溫度
-                </p>
+        <!-- 左側：品牌情境 -->
+        <div class="col-lg-6 p-0 reserve-media">
+            <img src="/assets/img/ad1.png" alt="咖啡與外帶杯情境">
+            
+            <!-- 視覺遮罩 -->
+            <div class="media-overlay"></div>
 
-                <button class="btn btn-reserve px-4 py-2" onclick="openReserveModal()">
-                    立即預約
-                </button>
+        </div>
 
+        <!-- 右側：CTA -->
+        <div class="col-lg-6 p-5 reserve-content d-flex flex-column justify-content-center text-center text-lg-start">
+
+            <p class="en-serif text-uppercase text-muted mb-2">
+                Reserve Your Moment
+            </p>
+
+            <h2 class="serif-text mb-3">
+                留一段時間給自己
+            </h2>
+
+            <p class="text-muted mb-4">
+                專屬座位・靜謐空間・限量時段<br>
+                在城市裡，找到屬於你的慢節奏。
+            </p>
+
+            <button class="btn btn-reserve px-4 py-2" onclick="openReserveModal()">
+                立即預約
+            </button>
+
+            <!-- 小補充信任感 -->
+            <div class="mt-4 small text-muted">
+                ✦ 每日限量時段開放預約
             </div>
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     <div class="modal fade" id="reserveModal" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">

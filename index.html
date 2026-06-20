@@ -714,6 +714,51 @@
     letter-spacing: 1px;
 }
 
+.store-ambience {
+    position: relative;
+    height: 70vh;
+    background-image: url("/assets/img/shoplogo.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* 進階視覺感 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.store-ambience .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+}
+
+.store-ambience .content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.store-ambience h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.store-ambience p {
+    opacity: 0.9;
+    margin-bottom: 20px;
+}
+
+.store-ambience .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 999px;
+}
     </style>
 </head>
 
@@ -758,6 +803,16 @@
             </div>
         </div>
     </section>
+
+    <section class="store-ambience">
+    <div class="overlay"></div>
+
+    <div class="content">
+        <h2>在城市的一角，找到你的安靜時刻</h2>
+        <p>一杯咖啡，一段屬於自己的時間。</p>
+        <a href="#menu" class="btn">探索菜單</a>
+    </div>
+</section>
 
     <section id="features" class="feature-section container">
         <div class="bg-text-watermark bg-text-right">COFFEE</div>
